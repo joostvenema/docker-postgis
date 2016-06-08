@@ -4,12 +4,13 @@ MAINTAINER Mike Dillon <mike@appropriate.io>
 ENV POSTGIS_MAJOR 2.2
 ENV POSTGIS_VERSION 2.2.2+dfsg-1.pgdg80+1
 
+RUN add-apt-repository ppa:georepublic/pgrouting
 RUN apt-get update \
       && apt-get install -y --no-install-recommends \
            postgresql-$PG_MAJOR-postgis-$POSTGIS_MAJOR=$POSTGIS_VERSION \
            postgis=$POSTGIS_VERSION \
+           postgresql-9.1-pgrouting \
            curl \
-           cmake \
            ca-certificates \
            git \
            alien \
@@ -29,15 +30,6 @@ RUN dpkg -i *.deb
 RUN echo "/usr/lib/oracle/12.1/client64/lib" > /etc/ld.so.conf.d/oracle.conf
 ENV ORACLE_HOME /usr/lib/oracle/12.1/client64
 ENV LD_LIBRARY_PATH /usr/lib/oracle/12.1/client64/lib
-
-# Download and compile pgrouting
-RUN git clone https://github.com/pgRouting/pgrouting.git &&\
-    cd pgrouting &&\
-    mkdir build && cd build &&\
-    cmake -DWITH_DOC=OFF -DWITH_DD=ON .. &&\
-    make -j3 && make install
-# cleanup
-RUN rm -Rf pgrouting
 
 # Download and compile oracle_fdw
 RUN git clone https://github.com/laurenz/oracle_fdw.git &&\
