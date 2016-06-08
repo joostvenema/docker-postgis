@@ -19,5 +19,8 @@ for DB in template_postgis "$POSTGRES_DB"; do
 		CREATE EXTENSION postgis_topology;
 		CREATE EXTENSION fuzzystrmatch;
 		CREATE EXTENSION postgis_tiger_geocoder;
+		CREATE EXTENSION pgrouting;
+		CREATE EXTENSION oracle_fdw;
+
 EOSQL
 done
