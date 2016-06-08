@@ -4,14 +4,16 @@ MAINTAINER Mike Dillon <mike@appropriate.io>
 ENV POSTGIS_MAJOR 2.2
 ENV POSTGIS_VERSION 2.2.2+dfsg-1.pgdg80+1
 
-RUN apt-get install software-properties-common
+RUN apt-get update
+RUN apt-get install -y --no-install-recommends software-properties-common
 RUN add-apt-repository ppa:georepublic/pgrouting
-RUN apt-get update \
-      && apt-get install -y --no-install-recommends \
+RUN apt-get install -y --no-install-recommends \
            postgresql-$PG_MAJOR-postgis-$POSTGIS_MAJOR=$POSTGIS_VERSION \
            postgis=$POSTGIS_VERSION \
+           postgresql-server-dev-9.5 \
            postgresql-9.1-pgrouting \
            curl \
+           gcc \
            ca-certificates \
            git \
            alien \
