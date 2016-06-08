@@ -9,6 +9,7 @@ RUN apt-get update \
            postgresql-$PG_MAJOR-postgis-$POSTGIS_MAJOR=$POSTGIS_VERSION \
            postgis=$POSTGIS_VERSION \
            curl \
+           git \
            alien \
       && rm -rf /var/lib/apt/lists/*
 
