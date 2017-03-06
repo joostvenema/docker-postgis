@@ -8,7 +8,9 @@ RUN apt-get update && apt-get install -y \
   postgresql-server-dev-9.5 \
   alien \
   zip \
-  libaio1
+  libaio1 \
+  gdal-bin \
+  libgdal-dev
 
 WORKDIR /tmp
 
@@ -27,10 +29,17 @@ ENV PATH $PATH:/usr/lib/oracle/12.1/client64/bin
 ENV ORACLE_HOME /usr/lib/oracle/12.1/client64/bin
 
 ADD https://github.com/laurenz/oracle_fdw/archive/master.zip ./oracle_fdw.zip
+ADD https://github.com/pramsey/pgsql-ogr-fdw/archive/master.zip ./ogr_fdw.zip
 
 RUN unzip -q oracle_fdw.zip
+RUN unzip -q ogr_fdw.zip
 
 WORKDIR /tmp/oracle_fdw-master
+
+RUN make && \
+    make install
+
+WORKDIR /tmp/pgsql-ogr-fdw-master
 
 RUN make && \
     make install
