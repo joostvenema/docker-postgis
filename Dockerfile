@@ -1,4 +1,4 @@
-FROM mdillon/postgis:9.5
+FROM mdillon/postgis:9.6
 MAINTAINER Joost Venema <joost.venema@kadaster.nl>
 
 ENV ORACLE_MAJOR 12.1
